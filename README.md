@@ -3,4 +3,4 @@
 ### Simplistic Shops
 ------------
 
-Comeing soon to Spigot!
+Coming soon to Spigot!
