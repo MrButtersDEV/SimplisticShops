@@ -1,0 +1,21 @@
+name: SimplisticShops
+version: 1.0-SNAPSHOT
+main: us.thezircon.play.simplisticshops.SimplisticShops
+prefix: SimplisticShops
+api-version: 1.13
+loadbefore: [Essentials, EssentialsX]
+depend: [Vault]
+softdepend: [PlaceholderAPI]
+authors: [BUTTERFIELD8]
+description: Buying and Selling made ez.
+website: https://discordapp.com/invite/baUYAnq
+commands:
+  sellall:
+    description: Sell's any sellable items in your inventory.
+    aliases: sellinv
+  sell:
+    description: Sell's any sellable items you put into the sell menu.
+  simplistic:
+    description: Simplistic Shop's admin controlls.
+  shop:
+    description: Open's the shop menu.

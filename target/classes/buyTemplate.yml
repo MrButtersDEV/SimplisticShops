@@ -1,0 +1,18 @@
+# Material  |  Buy Price (Double 00.00)
+# Below is a link to the list of supported materials! Be sure to use the proper formatting!
+# https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+
+Shop:
+  DisplayName: "&3Template Shop"
+  ShopIcon: PAPER
+  #Slot: 1 # If no slot is provided / is disabled the item will be added to the shops menu in shop order.
+  Lore:
+    - "&3Line 1 of lore"
+    - "&3Line 2 of lore"
+    - "Lore has papi support!"
+
+Prices:
+  STONE: 1.00
+  SAND: 2.00
+  DIRT: 1.00
+  GRASS_BLOCK: 1.50
