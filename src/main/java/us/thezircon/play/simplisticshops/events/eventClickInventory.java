@@ -33,12 +33,13 @@ public class eventClickInventory implements Listener {
     public void onClick(InventoryClickEvent e) {
 
         String SellShopsMenuTitle = ChatColor.translateAlternateColorCodes('&', "&3Shops");
+        String SellMenuTitle = ChatColor.translateAlternateColorCodes('&', "&9Checkout.....");
 
         Player player = (Player) e.getWhoClicked();
 
         //Checks for Shops Menu
         if (e.getView().getTitle().equals(SellShopsMenuTitle)) {
-            e.setCancelled(true); // Locks Items
+            e.setCancelled(true); // Locks Items for Shops menu
 
             //Gets Clicked Item
             File[] buyFiles = Buy.listFiles();
@@ -84,6 +85,11 @@ public class eventClickInventory implements Listener {
                     }
                 }
             }
+        }
+
+        //Check for checkout
+        if (e.getView().getTitle().equals(SellMenuTitle)){
+            e.setCancelled(true); // Locks items
         }
 
     }

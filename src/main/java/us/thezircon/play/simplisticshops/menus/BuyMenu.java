@@ -29,11 +29,12 @@ public class BuyMenu {
 
     private static DecimalFormat f = new DecimalFormat("#0.00");
 
+    private static String SellMenuTitle = ChatColor.translateAlternateColorCodes('&', "&9Checkout.....");
+
     public static void openMenu(Player player, String material, File file){
 
         FileConfiguration Shop = YamlConfiguration.loadConfiguration(file);
 
-        String SellMenuTitle = ChatColor.translateAlternateColorCodes('&', "&9Checkout.....");
         int size = (9*3);
 
         Inventory gui = Bukkit.createInventory(player, size, SellMenuTitle);
@@ -101,4 +102,5 @@ public class BuyMenu {
 
         player.openInventory(gui);
     }
+
 }
