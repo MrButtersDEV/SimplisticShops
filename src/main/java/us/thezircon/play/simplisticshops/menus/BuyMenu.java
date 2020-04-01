@@ -31,6 +31,8 @@ public class BuyMenu {
 
     private static String SellMenuTitle = ChatColor.translateAlternateColorCodes('&', "&9Checkout.....");
 
+    private static ItemStack cancelIcon;
+
     public static void openMenu(Player player, String material, File file){
 
         FileConfiguration Shop = YamlConfiguration.loadConfiguration(file);
@@ -49,7 +51,7 @@ public class BuyMenu {
         gui.setItem(10, cusamtIcon);
 
         //Cancel Item
-        ItemStack cancelIcon = new ItemStack(Material.RED_STAINED_GLASS_PANE);
+        cancelIcon = new ItemStack(Material.RED_STAINED_GLASS_PANE);
         ItemMeta cancel_meta = cancelIcon.getItemMeta();
         cancel_meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&c&lCANCEL"));
         cancelIcon.setItemMeta(cancel_meta);
@@ -105,6 +107,10 @@ public class BuyMenu {
 
     public static String getTitle(){
         return SellMenuTitle;
+    }
+
+    public static ItemStack getCancelIcon(){
+        return cancelIcon;
     }
 
 }

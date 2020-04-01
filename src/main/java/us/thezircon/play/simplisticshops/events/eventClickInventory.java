@@ -89,6 +89,9 @@ public class eventClickInventory implements Listener {
         //Check for checkout
         if (e.getView().getTitle().equals(BuyMenu.getTitle())){
             e.setCancelled(true); // Locks items
+            if (e.getCurrentItem().equals(BuyMenu.getCancelIcon())){
+                player.closeInventory();
+            }
         }
 
     }
