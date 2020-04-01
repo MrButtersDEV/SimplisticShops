@@ -103,4 +103,8 @@ public class BuyMenu {
         player.openInventory(gui);
     }
 
+    public static String getTitle(){
+        return SellMenuTitle;
+    }
+
 }
