@@ -34,6 +34,8 @@ public class BuyMenu {
 
     private static int amt = 0;
 
+    private static double totalPrice = 0.00;
+
     private static ItemStack cancelIcon,amountIcon,sellingIcon,buyIcon,cusamtIcon;
 
     public static void openMenu(Player player, String material, File file, int amount){
@@ -41,6 +43,8 @@ public class BuyMenu {
         amt = amount;
 
         FileConfiguration Shop = YamlConfiguration.loadConfiguration(file);
+
+        totalPrice = Shop.getDouble("Prices."+material);
 
         int size = (9*3);
 
@@ -95,6 +99,7 @@ public class BuyMenu {
             string = string.replace("{amt}", amount+"");
             string = string.replace("{price}", f.format(Shop.getDouble("Prices."+material)));
             string = string.replace("{totalPrice}", f.format((Shop.getDouble("Prices."+material)*amount)));
+            totalPrice = ((Shop.getDouble("Prices."+material)*amount));
             buyLore2.add(ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(player, string)));
         }
         buy_meta.setLore(buyLore2);
@@ -118,6 +123,10 @@ public class BuyMenu {
 
     public static String getTitle(){
         return SellMenuTitle;
+    }
+
+    public static double getTotalPrice(){
+        return totalPrice;
     }
 
     public static int getAmount(){

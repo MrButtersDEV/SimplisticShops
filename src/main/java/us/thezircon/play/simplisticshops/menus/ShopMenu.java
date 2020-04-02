@@ -45,6 +45,7 @@ public class ShopMenu {
                 String after = w.substring(1);
                 name2.append(first.toUpperCase()).append(after.toLowerCase()).append(" ");
             }
+
             String itemName = ChatColor.translateAlternateColorCodes('&', ("&3"+ name2 + "&a$"+ f.format(shop.getDouble("Prices." + keys)) +"/Per"));
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(itemName);

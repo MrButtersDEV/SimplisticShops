@@ -1,10 +1,15 @@
 package us.thezircon.play.simplisticshops.events;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.block.CreatureSpawner;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -26,6 +31,7 @@ public class eventClickInventory implements Listener {
 
     private static final SimplisticShops plugin = SimplisticShops.getPlugin(SimplisticShops.class);
     private static final Logger log = Logger.getLogger("Minecraft");
+    private static final Economy econ = SimplisticShops.getEconomy();
 
     private static final File Shops = new File(plugin.getDataFolder(), "Shops");
     private static final File Buy = new File(Shops,"Buy");
@@ -116,13 +122,37 @@ public class eventClickInventory implements Listener {
                 player.closeInventory();
                 if (buyFiles != null) {
                     for (File file : buyFiles) {
-                        if (e.getView().getTitle().equals(BuyMenu.getTitle())) {
-                            try {
-                                TimeUnit.SECONDS.sleep(1);
-                            } catch (InterruptedException ignored) {}
+                        if (e.getView().getTitle().equals(BuyMenu.getTitle())) { // May get wrong file idk????????
+                            //try {
+                            //    TimeUnit.SECONDS.sleep(1);
+                            //} catch (InterruptedException ignored) {}
                             SignGUI.sendSignGUI(player, file, BuyMenu.getsellingIcon().getType().toString());
                         }
                     }
+                }
+            } else if (e.getCurrentItem().equals(BuyMenu.getBuyIcon())) {
+
+                double price = BuyMenu.getTotalPrice();
+                EconomyResponse econRES = econ.withdrawPlayer(player, price);
+                if (econRES.transactionSuccess()) {
+                    ItemStack item = new ItemStack(BuyMenu.getsellingIcon().getType(), BuyMenu.getAmount());
+                    player.getInventory().addItem(item);
+                    player.closeInventory();
+
+                    String name = item.getType().toString().replace("_", " ");
+                    String words[] = name.split(" ");
+
+                    StringBuilder name2 = new StringBuilder();
+                    for (String w : words) {
+                        String first = w.substring(0, 1);
+                        String after = w.substring(1);
+                        name2.append(first.toUpperCase()).append(after.toLowerCase()).append(" ");
+                    }
+
+                    player.sendMessage("You bought " + item.getAmount() + " of " + name2 + " for $" + price);
+
+                } else {
+                    player.sendMessage("Transaction failed!");
                 }
             }
         }
