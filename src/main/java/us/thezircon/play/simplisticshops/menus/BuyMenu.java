@@ -31,9 +31,13 @@ public class BuyMenu {
 
     private static String SellMenuTitle = ChatColor.translateAlternateColorCodes('&', "&9Checkout.....");
 
-    private static ItemStack cancelIcon;
+    private static int amt = 0;
 
-    public static void openMenu(Player player, String material, File file){
+    private static ItemStack cancelIcon,amountIcon,sellingIcon;
+
+    public static void openMenu(Player player, String material, File file, int amount){
+
+        amt = amount;
 
         FileConfiguration Shop = YamlConfiguration.loadConfiguration(file);
 
@@ -58,13 +62,18 @@ public class BuyMenu {
 
         gui.setItem(12, cancelIcon);
 
-        //Item For Sale
-        ItemStack sellingIcon = new ItemStack(Material.valueOf(material));
+        // Amount Handling
+
+
+
+        //Item For Sale --------------------------------------------------------------------------------------------------------
+        sellingIcon = new ItemStack(Material.valueOf(material));
         ItemMeta selling_meta = sellingIcon.getItemMeta();
 
         List<String> sellLore = Arrays.asList("", "&3Amount: &b{amt}", "&3Total: &b${totalPrice} &3@ &b${price}&3/Per", "");
         List<String> sellLore2 = new ArrayList<>();
         for (String string : sellLore) {
+            string = string.replace("{amt}", amount+"");
             string = string.replace("{price}", f.format(Shop.getDouble("Prices."+material)));
             string = string.replace("{totalPrice}", f.format((Shop.getDouble("Prices."+material))));
             sellLore2.add(ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(player, string)));
@@ -82,6 +91,7 @@ public class BuyMenu {
         List<String> buyLore = Arrays.asList("&b{amt} &3@ &b${price}&3/Per", "&3Total: &b${totalPrice}");
         List<String> buyLore2 = new ArrayList<>();
         for (String string : buyLore) {
+            string = string.replace("{amt}", amount+"");
             string = string.replace("{price}", f.format(Shop.getDouble("Prices."+material)));
             string = string.replace("{totalPrice}", f.format((Shop.getDouble("Prices."+material))));
             buyLore2.add(ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(player, string)));
@@ -93,10 +103,10 @@ public class BuyMenu {
         gui.setItem(14, buyIcon);
 
         //Amt Selector
-        ItemStack amountIcon = new ItemStack(Material.DIAMOND);
+        amountIcon = new ItemStack(Material.DIAMOND);
         ItemMeta amount_meta = amountIcon.getItemMeta();
 
-        amount_meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&9Select Amount:"));
+        amount_meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&9Select Amount: &b" + amount));
 
         amountIcon.setItemMeta(amount_meta);
 
@@ -109,8 +119,20 @@ public class BuyMenu {
         return SellMenuTitle;
     }
 
+    public static int getAmount(){
+        return amt;
+    }
+
+    public static ItemStack getsellingIcon(){
+        return sellingIcon;
+    }
+
     public static ItemStack getCancelIcon(){
         return cancelIcon;
+    }
+
+    public static ItemStack getAmountIcon(){
+        return amountIcon;
     }
 
 }

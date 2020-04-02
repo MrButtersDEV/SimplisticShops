@@ -80,7 +80,7 @@ public class eventClickInventory implements Listener {
                 if (e.getView().getTitle().equals(shopName)){
                     e.setCancelled(true);
                     if (e.getCurrentItem()!=null){
-                        BuyMenu.openMenu(player, e.getCurrentItem().getType().toString(), file);
+                        BuyMenu.openMenu(player, e.getCurrentItem().getType().toString(), file, 1);
                     }
                 }
             }
@@ -89,8 +89,25 @@ public class eventClickInventory implements Listener {
         //Check for checkout
         if (e.getView().getTitle().equals(BuyMenu.getTitle())){
             e.setCancelled(true); // Locks items
-            if (e.getCurrentItem().equals(BuyMenu.getCancelIcon())){
+
+            if (e.getCurrentItem()==null) {
+                return;
+            }
+
+            if (e.getCurrentItem().equals(BuyMenu.getCancelIcon())){ // Cancel Icon
                 player.closeInventory();
+            } else if (e.getCurrentItem().equals(BuyMenu.getAmountIcon())){
+                if (buyFiles != null) {
+                    for (File file : buyFiles) {
+                        if (e.getView().getTitle().equals(BuyMenu.getTitle())) {
+                            if (BuyMenu.getAmount()<128) {
+                                BuyMenu.openMenu(player, BuyMenu.getsellingIcon().getType().toString(), file, BuyMenu.getAmount() * 2);
+                                System.out.println(BuyMenu.getAmount());
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
 
