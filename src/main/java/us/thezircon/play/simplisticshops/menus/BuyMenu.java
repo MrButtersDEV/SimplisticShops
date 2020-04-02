@@ -46,7 +46,7 @@ public class BuyMenu {
         Inventory gui = Bukkit.createInventory(player, size, SellMenuTitle);
 
         //Set Custom Amt
-        ItemStack cusamtIcon = new ItemStack(Material.ANVIL);
+        ItemStack cusamtIcon = new ItemStack(Material.OAK_SIGN);
         ItemMeta cusamt_meta = cusamtIcon.getItemMeta();
         cusamt_meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6Set Custom Amount"));
 

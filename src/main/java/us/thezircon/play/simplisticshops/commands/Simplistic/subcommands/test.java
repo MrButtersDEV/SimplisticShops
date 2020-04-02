@@ -3,7 +3,6 @@ package us.thezircon.play.simplisticshops.commands.Simplistic.subcommands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.thezircon.play.simplisticshops.commands.cmdManager;
-import us.thezircon.play.simplisticshops.utils.anvilSetCustomAmount;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class test extends cmdManager {
 
     @Override
     public void perform(CommandSender sender, String[] args) {
-        anvilSetCustomAmount.open((Player) sender);
+        
     }
 
     @Override

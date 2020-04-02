@@ -15,7 +15,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <url>Discord---------</url>
+    <url>https://discordapp.com/invite/baUYAnq</url>
 
     <build>
         <defaultGoal>clean package</defaultGoal>
@@ -72,8 +72,8 @@
             <url>https://jitpack.io</url>
         </repository>
         <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <id>dmulloy2-repo</id>
+            <url>https://repo.dmulloy2.net/nexus/repository/public/</url>
         </repository>
     </repositories>
 
@@ -97,9 +97,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.WesJD</groupId>
-            <artifactId>AnvilGUI</artifactId>
-            <version>e6a8dbe196</version>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>4.5.0</version>
         </dependency>
     </dependencies>
 </project>
