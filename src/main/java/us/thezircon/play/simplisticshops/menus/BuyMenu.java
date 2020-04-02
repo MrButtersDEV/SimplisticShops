@@ -33,7 +33,7 @@ public class BuyMenu {
 
     private static int amt = 0;
 
-    private static ItemStack cancelIcon,amountIcon,sellingIcon;
+    private static ItemStack cancelIcon,amountIcon,sellingIcon,buyIcon;
 
     public static void openMenu(Player player, String material, File file, int amount){
 
@@ -75,7 +75,7 @@ public class BuyMenu {
         for (String string : sellLore) {
             string = string.replace("{amt}", amount+"");
             string = string.replace("{price}", f.format(Shop.getDouble("Prices."+material)));
-            string = string.replace("{totalPrice}", f.format((Shop.getDouble("Prices."+material))));
+            string = string.replace("{totalPrice}", f.format((Shop.getDouble("Prices."+material)*amount)));
             sellLore2.add(ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(player, string)));
         }
         selling_meta.setLore(sellLore2);
@@ -84,7 +84,7 @@ public class BuyMenu {
         gui.setItem(13, sellingIcon);
 
         //Buy Item
-        ItemStack buyIcon = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
+        buyIcon = new ItemStack(Material.LIME_STAINED_GLASS_PANE);
         ItemMeta buy_meta = cancelIcon.getItemMeta();
         buy_meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&a&lBUY"));
 
@@ -93,7 +93,7 @@ public class BuyMenu {
         for (String string : buyLore) {
             string = string.replace("{amt}", amount+"");
             string = string.replace("{price}", f.format(Shop.getDouble("Prices."+material)));
-            string = string.replace("{totalPrice}", f.format((Shop.getDouble("Prices."+material))));
+            string = string.replace("{totalPrice}", f.format((Shop.getDouble("Prices."+material)*amount)));
             buyLore2.add(ChatColor.translateAlternateColorCodes('&', PlaceholderAPI.setPlaceholders(player, string)));
         }
         buy_meta.setLore(buyLore2);
@@ -125,6 +125,10 @@ public class BuyMenu {
 
     public static ItemStack getsellingIcon(){
         return sellingIcon;
+    }
+
+    public static ItemStack getBuyIcon(){
+        return buyIcon;
     }
 
     public static ItemStack getCancelIcon(){

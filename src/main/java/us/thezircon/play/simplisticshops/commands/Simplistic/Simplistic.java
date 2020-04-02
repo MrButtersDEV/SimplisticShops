@@ -6,6 +6,7 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
 import us.thezircon.play.simplisticshops.commands.Simplistic.subcommands.create;
+import us.thezircon.play.simplisticshops.commands.Simplistic.subcommands.test;
 import us.thezircon.play.simplisticshops.commands.cmdManager;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class Simplistic implements TabExecutor {
 
     public Simplistic() {
         subcommands.add(new create());
+        subcommands.add(new test());
     }
 
     public ArrayList<cmdManager> getSubCommands() {

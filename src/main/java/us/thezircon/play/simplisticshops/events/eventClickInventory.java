@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import us.thezircon.play.simplisticshops.SimplisticShops;
 import us.thezircon.play.simplisticshops.menus.BuyMenu;
 import us.thezircon.play.simplisticshops.menus.ShopMenu;
+import us.thezircon.play.simplisticshops.utils.anvilSetCustomAmount;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -102,12 +103,16 @@ public class eventClickInventory implements Listener {
                         if (e.getView().getTitle().equals(BuyMenu.getTitle())) {
                             if (BuyMenu.getAmount()<128) {
                                 BuyMenu.openMenu(player, BuyMenu.getsellingIcon().getType().toString(), file, BuyMenu.getAmount() * 2);
-                                System.out.println(BuyMenu.getAmount());
+                                break;
+                            } else {
+                                BuyMenu.openMenu(player, BuyMenu.getsellingIcon().getType().toString(), file, 1);
                                 break;
                             }
                         }
                     }
                 }
+            } else if (e.getCurrentItem().equals(BuyMenu.getBuyIcon())){
+                anvilSetCustomAmount.open(player);
             }
         }
 
