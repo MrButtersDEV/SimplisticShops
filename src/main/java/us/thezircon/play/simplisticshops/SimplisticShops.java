@@ -9,6 +9,7 @@ import us.thezircon.play.simplisticshops.commands.Shop;
 import us.thezircon.play.simplisticshops.commands.Simplistic.Simplistic;
 import us.thezircon.play.simplisticshops.events.eventClickInventory;
 import us.thezircon.play.simplisticshops.events.eventCloseInventory;
+import us.thezircon.play.simplisticshops.utils.SignMenuFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,6 +23,7 @@ public final class SimplisticShops extends JavaPlugin {
 
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ = null;
+    private SignMenuFactory signMenuFactory;
 
     @Override
     public void onEnable() {
@@ -48,11 +50,16 @@ public final class SimplisticShops extends JavaPlugin {
         getCommand("simplistic").setExecutor(new Simplistic());
         getCommand("shop").setExecutor(new Shop());
 
+        this.signMenuFactory = new SignMenuFactory(this);
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+    }
+
+    public SignMenuFactory getSignMenuFactory() {
+        return this.signMenuFactory;
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")

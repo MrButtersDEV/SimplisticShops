@@ -6,6 +6,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -33,7 +34,7 @@ public class BuyMenu {
 
     private static int amt = 0;
 
-    private static ItemStack cancelIcon,amountIcon,sellingIcon,buyIcon;
+    private static ItemStack cancelIcon,amountIcon,sellingIcon,buyIcon,cusamtIcon;
 
     public static void openMenu(Player player, String material, File file, int amount){
 
@@ -46,7 +47,7 @@ public class BuyMenu {
         Inventory gui = Bukkit.createInventory(player, size, SellMenuTitle);
 
         //Set Custom Amt
-        ItemStack cusamtIcon = new ItemStack(Material.OAK_SIGN);
+        cusamtIcon = new ItemStack(Material.OAK_SIGN);
         ItemMeta cusamt_meta = cusamtIcon.getItemMeta();
         cusamt_meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6Set Custom Amount"));
 
@@ -125,6 +126,10 @@ public class BuyMenu {
 
     public static ItemStack getsellingIcon(){
         return sellingIcon;
+    }
+
+    public static ItemStack getcusamtIcon() {
+        return cusamtIcon;
     }
 
     public static ItemStack getBuyIcon(){

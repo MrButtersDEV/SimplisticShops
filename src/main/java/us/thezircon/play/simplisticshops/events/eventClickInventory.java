@@ -14,10 +14,12 @@ import org.bukkit.inventory.meta.ItemMeta;
 import us.thezircon.play.simplisticshops.SimplisticShops;
 import us.thezircon.play.simplisticshops.menus.BuyMenu;
 import us.thezircon.play.simplisticshops.menus.ShopMenu;
+import us.thezircon.play.simplisticshops.menus.SignGUI;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class eventClickInventory implements Listener {
@@ -110,8 +112,18 @@ public class eventClickInventory implements Listener {
                         }
                     }
                 }
-            } else if (e.getCurrentItem().equals(BuyMenu.getBuyIcon())){
-
+            } else if (e.getCurrentItem().equals(BuyMenu.getcusamtIcon())){
+                player.closeInventory();
+                if (buyFiles != null) {
+                    for (File file : buyFiles) {
+                        if (e.getView().getTitle().equals(BuyMenu.getTitle())) {
+                            try {
+                                TimeUnit.SECONDS.sleep(1);
+                            } catch (InterruptedException ignored) {}
+                            SignGUI.sendSignGUI(player, file, BuyMenu.getsellingIcon().getType().toString());
+                        }
+                    }
+                }
             }
         }
 
