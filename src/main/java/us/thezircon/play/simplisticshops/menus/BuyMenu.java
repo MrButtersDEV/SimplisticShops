@@ -4,6 +4,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Item;
@@ -34,15 +35,23 @@ public class BuyMenu {
 
     private static int amt = 0;
 
+    private static Sound menuOpenSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuOpenSound"));
+
     private static double totalPrice = 0.00;
 
     private static ItemStack cancelIcon,amountIcon,sellingIcon,buyIcon,cusamtIcon;
 
+    private static File returnFile;
+
     public static void openMenu(Player player, String material, File file, int amount){
+
+        returnFile = file;
 
         amt = amount;
 
         FileConfiguration Shop = YamlConfiguration.loadConfiguration(file);
+
+        player.playSound(player.getLocation(), menuOpenSound, 3, 1);
 
         totalPrice = Shop.getDouble("Prices."+material);
 
@@ -151,6 +160,10 @@ public class BuyMenu {
 
     public static ItemStack getAmountIcon(){
         return amountIcon;
+    }
+
+    public static File getFile(){
+        return returnFile;
     }
 
 }

@@ -4,6 +4,7 @@ import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -27,10 +28,14 @@ public class Shops {
     private static final File Buy = new File(Shops,"Buy");
     private static final File Sell = new File(Shops,"Sell");
 
+    private static Sound saleCompleteSound = Sound.valueOf(plugin.getConfig().getString("SellSettings.Sounds.sellSound"));
+
     public static void openMenu(Player player) {
 
         String SellMenuTitle = ChatColor.translateAlternateColorCodes('&', "&3Shops");
         int size = (9*3);
+
+        player.playSound(player.getLocation(), saleCompleteSound, 3, 1);
 
         Inventory gui = Bukkit.createInventory(player, size, SellMenuTitle);
         try {

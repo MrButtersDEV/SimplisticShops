@@ -17,8 +17,8 @@ public class SellMenu {
 
     public static void openMenu(Player player) {
 
-        String SellMenuTitle = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(plugin.getConfig().getString("SellMenu.title")));
-        int size = (9*plugin.getConfig().getInt("SellMenu.rows"));
+        String SellMenuTitle = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(plugin.getConfig().getString("SellSettings.Menu.title")));
+        int size = (9*plugin.getConfig().getInt("SellSettings.Menu.rows"));
 
         Inventory gui = Bukkit.createInventory(player, size, SellMenuTitle);
         player.openInventory(gui);

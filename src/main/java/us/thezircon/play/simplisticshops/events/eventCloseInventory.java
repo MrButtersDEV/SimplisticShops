@@ -20,8 +20,8 @@ public class eventCloseInventory implements Listener {
     private static final SimplisticShops plugin = SimplisticShops.getPlugin(SimplisticShops.class);
     private static final Logger log = Logger.getLogger("Minecraft");
 
-    String SellMenuTitle = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(plugin.getConfig().getString("SellMenu.title")));
-    private static Sound menuCloseSound = Sound.valueOf(plugin.getConfig().getString("SellOptions.menuCloseSound"));
+    String SellMenuTitle = ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(plugin.getConfig().getString("SellSettings.Menu.title")));
+    private static Sound menuCloseSound = Sound.valueOf(plugin.getConfig().getString("SellSettings.Sounds.menuCloseSound"));
 
     @EventHandler
     public void closeInv(InventoryCloseEvent e){
@@ -30,7 +30,7 @@ public class eventCloseInventory implements Listener {
 
         //Lock items in Shops Menu
         if (e.getView().getTitle().equals(SellMenuTitle)){
-            player.playSound(player.getLocation(), menuCloseSound, 3, 1);
+            player.playSound(player.getLocation(), menuCloseSound, 1, 1);
 
             Seller.sellItems(player, inv, true);
         }

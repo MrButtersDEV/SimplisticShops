@@ -19,3 +19,4 @@ commands:
     description: Simplistic Shop's admin controlls.
   shop:
     description: Open's the shop menu.
+    aliases: shops

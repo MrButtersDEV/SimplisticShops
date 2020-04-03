@@ -5,6 +5,7 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.CreatureSpawner;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -36,6 +37,9 @@ public class eventClickInventory implements Listener {
     private static final File Shops = new File(plugin.getDataFolder(), "Shops");
     private static final File Buy = new File(Shops,"Buy");
     private static final File Sell = new File(Shops,"Sell");
+
+    private static Sound menuSaleCompleteSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuSaleCompleteSound"));
+    private static Sound menuSaleFailedSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuSaleFailedSound"));
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
@@ -104,18 +108,12 @@ public class eventClickInventory implements Listener {
 
             if (e.getCurrentItem().equals(BuyMenu.getCancelIcon())){ // Cancel Icon
                 player.closeInventory();
-            } else if (e.getCurrentItem().equals(BuyMenu.getAmountIcon())){
+            } else if (e.getCurrentItem().equals(BuyMenu.getAmountIcon())){ // Amount changer
                 if (buyFiles != null) {
-                    for (File file : buyFiles) {
-                        if (e.getView().getTitle().equals(BuyMenu.getTitle())) {
-                            if (BuyMenu.getAmount()<128) {
-                                BuyMenu.openMenu(player, BuyMenu.getsellingIcon().getType().toString(), file, BuyMenu.getAmount() * 2);
-                                break;
-                            } else {
-                                BuyMenu.openMenu(player, BuyMenu.getsellingIcon().getType().toString(), file, 1);
-                                break;
-                            }
-                        }
+                    if (BuyMenu.getAmount()<128) {
+                        BuyMenu.openMenu(player, BuyMenu.getsellingIcon().getType().toString(), BuyMenu.getFile(), BuyMenu.getAmount() * 2);
+                    } else {
+                        BuyMenu.openMenu(player, BuyMenu.getsellingIcon().getType().toString(), BuyMenu.getFile(), 1);
                     }
                 }
             } else if (e.getCurrentItem().equals(BuyMenu.getcusamtIcon())){
@@ -150,9 +148,11 @@ public class eventClickInventory implements Listener {
                     }
 
                     player.sendMessage("You bought " + item.getAmount() + " of " + name2 + " for $" + price);
+                    player.playSound(player.getLocation(), menuSaleCompleteSound, 3, 1);
 
                 } else {
                     player.sendMessage("Transaction failed!");
+                    player.playSound(player.getLocation(), menuSaleFailedSound, 3, 1);
                 }
             }
         }
