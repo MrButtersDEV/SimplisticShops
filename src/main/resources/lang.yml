@@ -1,0 +1,4 @@
+msgPrefix: "&3&lSTORE &e▪&r"
+
+msgNoPerm: "&cYou don't have permission to do that."
+msgBuyItem: "You bought {amount} of {item} for ${price}"

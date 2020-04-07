@@ -20,6 +20,7 @@ public class SignGUI {
                 .reopenIfFail()
                 .response((player, lines) -> {
                     if (isNumeric(lines[0])){
+                        System.out.println("Is a Number!");
                         return true;
                     } else {
                         return false;

@@ -14,8 +14,6 @@
 ################################################################################################
 ConfigVersion: 1.0
 
-msgPrefix: "&3&lSTORE &e▪&r"
-
 SellSettings:
   Menu:
     title: "&6&l$ Sell your Items $"

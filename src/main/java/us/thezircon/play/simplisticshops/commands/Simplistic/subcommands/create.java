@@ -1,14 +1,20 @@
 package us.thezircon.play.simplisticshops.commands.Simplistic.subcommands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import us.thezircon.play.simplisticshops.SimplisticShops;
 import us.thezircon.play.simplisticshops.commands.cmdManager;
 import us.thezircon.play.simplisticshops.utils.Creator;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class create extends cmdManager {
+
+    private final SimplisticShops plugin = SimplisticShops.getPlugin(SimplisticShops.class);
+    private final Logger log = Logger.getLogger("Minecraft");
 
     @Override
     public String getName() {
@@ -28,10 +34,13 @@ public class create extends cmdManager {
     @Override
     public void perform(CommandSender sender, String[] args) {
 
+        String msgPrefix = ChatColor.translateAlternateColorCodes('&', plugin.getLangConfig().getString("msgPrefix"));
+        String msgNoPerms = ChatColor.translateAlternateColorCodes('&', plugin.getLangConfig().getString("msgNoPerm"));
+
         if (sender.hasPermission("simplisticshops.createshop")) {
             Creator.createStore(sender, args[1]);
         } else {
-            sender.sendMessage("You don't have perm to do this!"); ///////////////////////////// LANG.YML
+            sender.sendMessage(msgPrefix + " " + msgNoPerms);
         }
 
     }

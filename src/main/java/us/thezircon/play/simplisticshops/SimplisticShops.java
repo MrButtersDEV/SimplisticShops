@@ -1,6 +1,9 @@
 package us.thezircon.play.simplisticshops;
 
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.thezircon.play.simplisticshops.commands.Sell;
@@ -37,7 +40,8 @@ public final class SimplisticShops extends JavaPlugin {
 
         //Setup Directories & Defaults
         getConfig().options().copyDefaults();
-        saveDefaultConfig(); // Saves Config
+        saveDefaultConfig(); // Saves Config.
+        createLangFile(); // Creates lang file.
         setupFileStructure(); // Creates Shops File Structure.
 
         //Events
@@ -114,6 +118,33 @@ public final class SimplisticShops extends JavaPlugin {
 
     public static Economy getEconomy() {
         return econ;
+    }
+
+    //lang.yml
+    private File fileLang;
+    private FileConfiguration langConfig;
+
+    public FileConfiguration getLangConfig() {
+        return this.langConfig;
+    }
+
+    private void createLangFile() {
+        fileLang = new File(getDataFolder(), "lang.yml");
+        if (!fileLang.exists()) {
+            fileLang.getParentFile().mkdirs();
+            saveResource("lang.yml", false);
+        }
+
+        langConfig= new YamlConfiguration();
+        try {
+            langConfig.load(fileLang);
+        } catch (IOException | InvalidConfigurationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void langReload(){
+        langConfig = YamlConfiguration.loadConfiguration(fileLang);
     }
 
 }

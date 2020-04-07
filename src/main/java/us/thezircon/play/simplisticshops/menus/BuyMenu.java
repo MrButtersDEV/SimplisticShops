@@ -76,10 +76,6 @@ public class BuyMenu {
 
         gui.setItem(12, cancelIcon);
 
-        // Amount Handling
-
-
-
         //Item For Sale --------------------------------------------------------------------------------------------------------
         sellingIcon = new ItemStack(Material.valueOf(material));
         ItemMeta selling_meta = sellingIcon.getItemMeta();

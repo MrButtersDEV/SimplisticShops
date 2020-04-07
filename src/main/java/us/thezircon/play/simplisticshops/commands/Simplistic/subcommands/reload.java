@@ -8,19 +8,18 @@ import us.thezircon.play.simplisticshops.commands.cmdManager;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class test extends cmdManager {
-
+public class reload extends cmdManager {
     private static final SimplisticShops plugin = SimplisticShops.getPlugin(SimplisticShops.class);
     private static final Logger log = Logger.getLogger("Minecraft");
 
     @Override
     public String getName() {
-        return "test";
+        return "reload";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "reloads the plugin";
     }
 
     @Override
@@ -30,12 +29,10 @@ public class test extends cmdManager {
 
     @Override
     public void perform(CommandSender sender, String[] args) {
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
 
+        plugin.reloadConfig();
+        plugin.langReload();
 
-
-        }
     }
 
     @Override
