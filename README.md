@@ -2,5 +2,8 @@
 
 ### Simplistic Shops
 ------------
+# Info
+![GitHub issues](https://img.shields.io/github/issues-raw/MrButtersDEV/SimplisticShops)
+------------
 
 Coming soon to Spigot!
