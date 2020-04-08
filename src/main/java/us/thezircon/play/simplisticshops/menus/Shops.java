@@ -26,7 +26,6 @@ public class Shops {
 
     private static final File Shops = new File(plugin.getDataFolder(), "Shops");
     private static final File Buy = new File(Shops,"Buy");
-    private static final File Sell = new File(Shops,"Sell");
 
     private static Sound saleCompleteSound = Sound.valueOf(plugin.getConfig().getString("SellSettings.Sounds.sellSound"));
 
