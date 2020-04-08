@@ -2,7 +2,12 @@
 # Below is a link to the list of supported materials! Be sure to use the proper formatting!
 # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
 
-STONE: 1.00
-SAND: 2.00
-DIRT: 1.00
-GRASS_BLOCK: 1.50
+Shop:
+  Name: "Template Shop"
+  DisplayName: "&3Template Shop"
+
+Prices:
+  STONE: 1.00
+  SAND: 2.00
+  DIRT: 1.00
+  GRASS_BLOCK: 1.50

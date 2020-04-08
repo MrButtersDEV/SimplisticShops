@@ -3,14 +3,12 @@ package us.thezircon.play.simplisticshops.events;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.block.Block;
-import org.bukkit.block.CreatureSpawner;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,9 +18,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import us.thezircon.play.simplisticshops.SimplisticShops;
 import us.thezircon.play.simplisticshops.menus.BuyMenu;
 import us.thezircon.play.simplisticshops.menus.ShopMenu;
-import us.thezircon.play.simplisticshops.menus.SignGUI;
+import us.thezircon.play.simplisticshops.menus.AmountMenu;
 
+import javax.xml.bind.helpers.DefaultValidationEventHandler;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -47,6 +47,7 @@ public class eventClickInventory implements Listener {
         String SellShopsMenuTitle = ChatColor.translateAlternateColorCodes('&', "&3Shops");
 
         Player player = (Player) e.getWhoClicked();
+        DecimalFormat f = new DecimalFormat("#0.00");
 
         //Checks for Shops Menu
         if (e.getView().getTitle().equals(SellShopsMenuTitle)) {
@@ -122,9 +123,10 @@ public class eventClickInventory implements Listener {
                     for (File file : buyFiles) {
                         if (e.getView().getTitle().equals(BuyMenu.getTitle())) { // May get wrong file idk????????
                             //try {
-                            //    TimeUnit.SECONDS.sleep(1);
+                            //    TimeUnit.MICROSECONDS.sleep(500);
                             //} catch (InterruptedException ignored) {}
-                            SignGUI.sendSignGUI(player, file, BuyMenu.getsellingIcon().getType().toString());
+                            AmountMenu.openAnvil(player, file, BuyMenu.getsellingIcon().getType().toString());
+                            break;
                         }
                     }
                 }
@@ -147,11 +149,14 @@ public class eventClickInventory implements Listener {
                         name2.append(first.toUpperCase()).append(after.toLowerCase()).append(" ");
                     }
 
-                    player.sendMessage("You bought " + item.getAmount() + " of " + name2 + " for $" + price);
+                    String saleComplete = ChatColor.translateAlternateColorCodes('&', "&a# &7You bought &b{amount} &7of &3{item} &7for &a${price}".replace("{amount}", item.getAmount()+"").replace("{item}", name2).replace("  ", " ").replace("{price}", f.format(price)));
+
+                    player.sendMessage(saleComplete);
                     player.playSound(player.getLocation(), menuSaleCompleteSound, 3, 1);
 
                 } else {
-                    player.sendMessage("Transaction failed!");
+                    String saleFail = ChatColor.translateAlternateColorCodes('&', "&c#&7 Transaction Failed. Check your balance!");
+                    player.sendMessage(saleFail);
                     player.playSound(player.getLocation(), menuSaleFailedSound, 3, 1);
                 }
             }

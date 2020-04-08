@@ -38,7 +38,13 @@ public class create extends cmdManager {
         String msgNoPerms = ChatColor.translateAlternateColorCodes('&', plugin.getLangConfig().getString("msgNoPerm"));
 
         if (sender.hasPermission("simplisticshops.createshop")) {
-            Creator.createStore(sender, args[1]);
+            if (args[1].equalsIgnoreCase("buy")) {
+                Creator.createBuyStore(sender, args[2]);
+            } else if (args[1].equalsIgnoreCase("sell")) {
+                Creator.createSellShop(sender, args[2]);
+            } else {
+                sender.sendMessage("Unknown args! /simplistic create <buy|sell> name.yml");
+            }
         } else {
             sender.sendMessage(msgPrefix + " " + msgNoPerms);
         }
@@ -47,12 +53,18 @@ public class create extends cmdManager {
 
     @Override
     public List<String> arg1(Player player, String[] args) {
+        List<String> buySell = Arrays.asList("buy", "sell");
+        return buySell;
+    }
+
+    @Override
+    public List<String> arg2(Player player, String[] args) {
         List<String> exampleShopName = Arrays.asList( "ShopName.yml", "BuildingBlocks.yml", "DecorationBlocks.yml", "Redstone.yml", "Trasnsportation.yml", "Miscellaneous.yml", "Foodstuffs.yml", "Tools.yml", "Combat.yml", "Brewing.yml");
         return exampleShopName;
     }
 
     @Override
-    public List<String> arg2(Player player, String[] args) {
+    public List<String> arg3(Player player, String[] args) {
         return null;
     }
 }

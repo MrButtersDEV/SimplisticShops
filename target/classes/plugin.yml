@@ -5,7 +5,7 @@ prefix: SimplisticShops
 api-version: 1.13
 loadbefore: [Essentials, EssentialsX]
 depend: [Vault]
-softdepend: [PlaceholderAPI, ProtocolLib]
+softdepend: [PlaceholderAPI]
 authors: [BUTTERFIELD8]
 description: Buying and Selling made ez.
 website: https://discordapp.com/invite/baUYAnq
@@ -15,8 +15,12 @@ commands:
     aliases: sellinv
   sell:
     description: Sell's any sellable items you put into the sell menu.
+    aliases: ssell
   simplistic:
     description: Simplistic Shop's admin controlls.
+  setprice:
+    description: Set's shops prices
+    aliases: ssetprice
   shop:
     description: Open's the shop menu.
-    aliases: shops
+    aliases: [shops, sshop]

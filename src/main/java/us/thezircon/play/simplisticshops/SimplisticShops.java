@@ -8,11 +8,11 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.thezircon.play.simplisticshops.commands.Sell;
 import us.thezircon.play.simplisticshops.commands.SellAll;
+import us.thezircon.play.simplisticshops.commands.SetPrice.SetPrice;
 import us.thezircon.play.simplisticshops.commands.Shop;
 import us.thezircon.play.simplisticshops.commands.Simplistic.Simplistic;
 import us.thezircon.play.simplisticshops.events.eventClickInventory;
 import us.thezircon.play.simplisticshops.events.eventCloseInventory;
-import us.thezircon.play.simplisticshops.utils.SignMenuFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,6 @@ public final class SimplisticShops extends JavaPlugin {
 
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ = null;
-    private SignMenuFactory signMenuFactory;
 
     @Override
     public void onEnable() {
@@ -53,17 +52,13 @@ public final class SimplisticShops extends JavaPlugin {
         getCommand("sell").setExecutor(new Sell());
         getCommand("simplistic").setExecutor(new Simplistic());
         getCommand("shop").setExecutor(new Shop());
+        getCommand("setprice").setExecutor(new SetPrice());
 
-        this.signMenuFactory = new SignMenuFactory(this);
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-    }
-
-    public SignMenuFactory getSignMenuFactory() {
-        return this.signMenuFactory;
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -81,21 +76,22 @@ public final class SimplisticShops extends JavaPlugin {
         }
 
         File buyTemplate = new File(Buy, "buyTemplate.yml");
-        InputStream template = getResource("buyTemplate.yml");
+        InputStream templateBUY = getResource("buyTemplate.yml");
         if (!buyTemplate.exists()) {
             Path path = Paths.get(Buy+File.separator+ "buyTemplate.yml");
             try {
-                Files.copy(template, path);
+                Files.copy(templateBUY, path);
             } catch (IOException e) {
                 log.warning(String.format("[%s] - Issue Saving templaye.yml for BUY", getDescription().getName()));
             }
         }
 
         File sellTemplate = new File(Sell, "sellTemplate.yml");
+        InputStream templateSELL = getResource("sellTemplate.yml");
         if (!sellTemplate.exists()) {
             Path path = Paths.get(Sell+File.separator+ "sellTemplate.yml");
             try {
-                Files.copy(template, path);
+                Files.copy(templateSELL, path);
             } catch (IOException e) {
                 log.warning(String.format("[%s] - Issue Saving templaye.yml for SELL", getDescription().getName()));
             }

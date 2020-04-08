@@ -19,4 +19,6 @@ public abstract class cmdManager {
 
     public abstract List<String> arg2 (Player player, String args[]);
 
+    public abstract List<String> arg3 (Player player, String args[]);
+
 }

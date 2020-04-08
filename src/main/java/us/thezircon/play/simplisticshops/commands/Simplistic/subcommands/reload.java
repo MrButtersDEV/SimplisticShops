@@ -44,4 +44,9 @@ public class reload extends cmdManager {
     public List<String> arg2(Player player, String[] args) {
         return null;
     }
+
+    @Override
+    public List<String> arg3(Player player, String[] args) {
+        return null;
+    }
 }

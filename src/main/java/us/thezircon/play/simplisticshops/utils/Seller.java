@@ -33,12 +33,11 @@ public class Seller {
 
         //Get Files in SELL
         File[] sellFiles = Sell.listFiles();
-
         //Check if player has SimplisticShops.sell.FILE
         try {
             for (File file : sellFiles) {
                 if (file.isFile()) {
-                    if (player.hasPermission("SimplisticShops.sell." + file)) { // Player Has Shop to Sell to
+                    if (player.hasPermission("SimplisticShops.sell." + file.getName())) { // Player Has Shop to Sell to
 
                         //Sell items:
                         FileConfiguration shop = YamlConfiguration.loadConfiguration(file);
@@ -49,7 +48,7 @@ public class Seller {
                             ItemStack item = inv.getItem(i);
                             if (item != null) {
                                 int amt = item.getAmount();
-                                double pricePer = shop.getDouble(item.getType().toString());
+                                double pricePer = shop.getDouble("Prices." + item.getType().toString());
 
                                 totalSale += (amt*pricePer);
 
@@ -60,7 +59,7 @@ public class Seller {
                                     continue;
                                 }
 
-                                if (shop.getKeys(true).contains(item.getType().toString())){
+                                if (shop.getKeys(true).contains("Prices." + item.getType().toString())){
                                     itemsSold += amt;
                                     item.setAmount(0);
                                     didSell = true;
@@ -82,6 +81,15 @@ public class Seller {
                             }
                         } else {
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e# &7No items were sold as none were sellable."));
+                        }
+                    } else { // NO File / Perm Found ----------------- If using chest it will dupe
+                        if (chkReturns) { // Sell GUI
+                            for (ItemStack items : inv.getContents()) {
+                                if (items!=null) {
+                                    player.getInventory().addItem(items);
+                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c# &7No items were sold as you have no shop to sell them too."));
+                                }
+                            }
                         }
                     }
                 }

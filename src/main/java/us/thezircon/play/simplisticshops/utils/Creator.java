@@ -24,7 +24,7 @@ public class Creator {
     private static final File Buy = new File(Shops,"Buy");
     private static final File Sell = new File(Shops,"Sell");
 
-    public static void createStore(CommandSender sender, String shopName){ // Creates a new shop
+    public static void createBuyStore(CommandSender sender, String shopName){ // Creates a new shop
         if (!shopName.endsWith(".yml")) {
             shopName = shopName+".yml";
         }
@@ -57,4 +57,38 @@ public class Creator {
 
     }
 
+    public static void createSellShop(CommandSender sender, String shopName){
+
+        if (!shopName.endsWith(".yml")) {
+            shopName = shopName+".yml";
+        }
+
+        File shopFile = new File(Sell, shopName);
+        if (!shopFile.exists()) {
+            try {
+                shopFile.createNewFile();
+
+                Path path = Paths.get(Sell+File.separator+shopName);
+                InputStream template = plugin.getResource("sellTemplate.yml");
+
+                byte[] buffer = new byte[template.available()];
+                template.read(buffer);
+
+                OutputStream outStream = new FileOutputStream(shopFile);
+                outStream.write(buffer);
+
+                FileConfiguration shop = YamlConfiguration.loadConfiguration(shopFile);
+                shop.set("Shop.DisplayName", "&3"+shopName.replace(".yml", " Shop"));
+                shop.set("Shop.Name", ""+shopName.replace(".yml", " Shop"));
+                shop.save(shopFile);
+
+                sender.sendMessage("Successfully created shop");
+            } catch (IOException e) {
+                sender.sendMessage("Unable to create shop "+shopName);
+            }
+        } else {
+            sender.sendMessage("A shop by the name of '"+shopName+"' already exists.");
+        }
+
+    }
 }

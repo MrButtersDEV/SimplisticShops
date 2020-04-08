@@ -31,7 +31,7 @@ public class BuyMenu {
 
     private static DecimalFormat f = new DecimalFormat("#0.00");
 
-    private static String SellMenuTitle = ChatColor.translateAlternateColorCodes('&', "&9Checkout.....");
+    private static String SellMenuTitle;// = ChatColor.translateAlternateColorCodes('&', "&9Checkout.....");
 
     private static int amt = 0;
 
@@ -44,12 +44,13 @@ public class BuyMenu {
     private static File returnFile;
 
     public static void openMenu(Player player, String material, File file, int amount){
-
         returnFile = file;
 
         amt = amount;
 
         FileConfiguration Shop = YamlConfiguration.loadConfiguration(file);
+
+        SellMenuTitle = ChatColor.translateAlternateColorCodes('&', Shop.getString("Shop.DisplayName") +" &7- &9Checkout.....");
 
         player.playSound(player.getLocation(), menuOpenSound, 3, 1);
 
