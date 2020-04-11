@@ -7,12 +7,15 @@ import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Chest;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import us.thezircon.play.simplisticshops.SimplisticShops;
@@ -48,6 +51,10 @@ public class eventClickInventory implements Listener {
 
         Player player = (Player) e.getWhoClicked();
         DecimalFormat f = new DecimalFormat("#0.00");
+
+        if (e.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+            return;
+        }
 
         //Checks for Shops Menu
         if (e.getView().getTitle().equals(SellShopsMenuTitle)) {
