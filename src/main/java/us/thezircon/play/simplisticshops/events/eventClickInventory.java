@@ -27,22 +27,22 @@ import javax.xml.bind.helpers.DefaultValidationEventHandler;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class eventClickInventory implements Listener {
 
-    private static final SimplisticShops plugin = SimplisticShops.getPlugin(SimplisticShops.class);
-    private static final Logger log = Logger.getLogger("Minecraft");
-    private static final Economy econ = SimplisticShops.getEconomy();
-
-    private static final File Shops = new File(plugin.getDataFolder(), "Shops");
-    private static final File Buy = new File(Shops,"Buy");
-    private static final File Sell = new File(Shops,"Sell");
-
-    private static Sound menuSaleCompleteSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuSaleCompleteSound"));
-    private static Sound menuSaleFailedSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuSaleFailedSound"));
+    private final SimplisticShops plugin = SimplisticShops.getPlugin(SimplisticShops.class);
+    private final Logger log = Logger.getLogger("Minecraft");
+    private final Economy econ = SimplisticShops.getEconomy();
+    private final File Shops = new File(plugin.getDataFolder(), "Shops");
+    private final File Buy = new File(Shops,"Buy");
+    private final File Sell = new File(Shops,"Sell");
+    private Sound menuSaleCompleteSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuSaleCompleteSound"));
+    private Sound menuSaleFailedSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuSaleFailedSound"));
+    private Sound menuOpenSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuOpenSound"));
 
     @EventHandler
     public void onClick(InventoryClickEvent e) {
@@ -100,7 +100,10 @@ public class eventClickInventory implements Listener {
                 if (e.getView().getTitle().equals(shopName)){
                     e.setCancelled(true);
                     if (e.getCurrentItem()!=null){
-                        BuyMenu.openMenu(player, e.getCurrentItem().getType().toString(), file, 1);
+                        //BuyMenu.openMenu(player, e.getCurrentItem().getType().toString(), file, 1); OLD SYSTEM
+                        BuyMenu checkout = new BuyMenu(player, e.getCurrentItem().getType().toString(), file, 1);
+                        plugin.hmChkOut.put(player, checkout);
+                        checkout.open();
                     }
                 }
             }
@@ -114,35 +117,40 @@ public class eventClickInventory implements Listener {
                 return;
             }
 
-            if (e.getCurrentItem().equals(BuyMenu.getCancelIcon())){ // Cancel Icon
+            BuyMenu checkout = plugin.hmChkOut.get(player);
+
+            if (e.getCurrentItem().equals(checkout.getCancelIcon())){ // Cancel Icon
                 player.closeInventory();
-            } else if (e.getCurrentItem().equals(BuyMenu.getAmountIcon())){ // Amount changer
-                if (buyFiles != null) {
-                    if (BuyMenu.getAmount()<128) {
-                        BuyMenu.openMenu(player, BuyMenu.getsellingIcon().getType().toString(), BuyMenu.getFile(), BuyMenu.getAmount() * 2);
-                    } else {
-                        BuyMenu.openMenu(player, BuyMenu.getsellingIcon().getType().toString(), BuyMenu.getFile(), 1);
-                    }
+                plugin.hmChkOut.remove(player);
+            } else if (e.getCurrentItem().equals(checkout.getAmountIcon())){ // Amount changer
+                List doDontNum = Arrays.asList(1, 2, 4, 8, 16, 32, 64, 128);
+                player.playSound(player.getLocation(), menuOpenSound, 1, 1);
+                if (checkout.getAmount()<128 && doDontNum.contains(checkout.getAmount())) {
+                    //checkout.openMenu(player, checkout.getForSaleIcon().getType().toString(), checkout.getFile(), checkout.getAmount() * 2);
+                    checkout.setNewAmount(checkout.getAmount() * 2);
+                    plugin.hmChkOut.put(player, checkout);
+                    player.updateInventory();
+                } else {
+                    //checkout.openMenu(player, checkout.getForSaleIcon().getType().toString(), checkout.getFile(), 1);
+                    checkout.setNewAmount(1);
+                    plugin.hmChkOut.put(player, checkout);
+                    player.updateInventory();
                 }
-            } else if (e.getCurrentItem().equals(BuyMenu.getcusamtIcon())){
+            } else if (e.getCurrentItem().equals(checkout.getCustomAmtIcon())){
                 player.closeInventory();
                 if (buyFiles != null) {
                     for (File file : buyFiles) {
                         if (e.getView().getTitle().equals(BuyMenu.getTitle())) { // May get wrong file idk????????
-                            //try {
-                            //    TimeUnit.MICROSECONDS.sleep(500);
-                            //} catch (InterruptedException ignored) {}
-                            AmountMenu.openAnvil(player, file, BuyMenu.getsellingIcon().getType().toString());
+                            AmountMenu.openAnvil(player, file, checkout.getForSaleIcon().getType().toString());
                             break;
                         }
                     }
                 }
-            } else if (e.getCurrentItem().equals(BuyMenu.getBuyIcon())) {
-
-                double price = BuyMenu.getTotalPrice();
+            } else if (e.getCurrentItem().equals(checkout.getBuyIcon())) {
+                double price = checkout.getTotalPrice();
                 EconomyResponse econRES = econ.withdrawPlayer(player, price);
                 if (econRES.transactionSuccess()) {
-                    ItemStack item = new ItemStack(BuyMenu.getsellingIcon().getType(), BuyMenu.getAmount());
+                    ItemStack item = new ItemStack(checkout.getForSaleIcon().getType(), checkout.getAmount());
                     player.getInventory().addItem(item);
                     player.closeInventory();
 
@@ -160,7 +168,7 @@ public class eventClickInventory implements Listener {
 
                     player.sendMessage(saleComplete);
                     player.playSound(player.getLocation(), menuSaleCompleteSound, 3, 1);
-
+                    plugin.hmChkOut.remove(player);
                 } else {
                     String saleFail = ChatColor.translateAlternateColorCodes('&', "&c#&7 Transaction Failed. Check your balance!");
                     player.sendMessage(saleFail);

@@ -61,8 +61,6 @@ public class ShopMenu {
             item.setItemMeta(meta);
             gui.addItem(item);
         }
-
         player.openInventory(gui);
-
     }
 }

@@ -21,6 +21,5 @@ public class SellMenu {
 
         Inventory gui = Bukkit.createInventory(player, size, SellMenuTitle);
         player.openInventory(gui);
-
     }
 }

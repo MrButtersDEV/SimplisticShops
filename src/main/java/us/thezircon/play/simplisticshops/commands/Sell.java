@@ -14,7 +14,6 @@ public class Sell implements CommandExecutor {
 
     private static final SimplisticShops plugin = SimplisticShops.getPlugin(SimplisticShops.class);
     private static final Logger log = Logger.getLogger("Minecraft");
-
     private static Sound saleCompleteSound = Sound.valueOf(plugin.getConfig().getString("SellSettings.Sounds.sellSound"));
 
     @Override

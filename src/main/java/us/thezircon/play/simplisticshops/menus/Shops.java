@@ -69,7 +69,6 @@ public class Shops {
             player.sendMessage("No stores found!");
         }
         //Check if player has SimplisticShops.sell.FILE
-
         player.openInventory(gui);
     }
 }
