@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import us.thezircon.play.simplisticshops.SimplisticShops;
+import us.thezircon.play.simplisticshops.menus.BuyMenu;
 import us.thezircon.play.simplisticshops.menus.SellMenu;
 import us.thezircon.play.simplisticshops.utils.Seller;
 
@@ -33,6 +34,8 @@ public class eventCloseInventory implements Listener {
             player.playSound(player.getLocation(), menuCloseSound, 1, 1);
 
             Seller.sellItems(player, inv, true);
+        } else if (e.getView().getTitle().equals(BuyMenu.getTitle())) {
+            plugin.hmChkOut.remove(player);
         }
     }
 }

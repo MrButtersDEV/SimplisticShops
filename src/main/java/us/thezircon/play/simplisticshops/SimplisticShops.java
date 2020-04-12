@@ -1,9 +1,11 @@
 package us.thezircon.play.simplisticshops;
 
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.thezircon.play.simplisticshops.commands.Sell;
@@ -13,6 +15,7 @@ import us.thezircon.play.simplisticshops.commands.Shop;
 import us.thezircon.play.simplisticshops.commands.Simplistic.Simplistic;
 import us.thezircon.play.simplisticshops.events.eventClickInventory;
 import us.thezircon.play.simplisticshops.events.eventCloseInventory;
+import us.thezircon.play.simplisticshops.menus.BuyMenu;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,12 +23,15 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 public final class SimplisticShops extends JavaPlugin {
 
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ = null;
+
+    public HashMap<Player, BuyMenu> hmChkOut = new HashMap<>();
 
     @Override
     public void onEnable() {
