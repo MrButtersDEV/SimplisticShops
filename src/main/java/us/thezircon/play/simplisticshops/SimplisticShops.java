@@ -29,8 +29,6 @@ public final class SimplisticShops extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
-
         // Setup Economy
         if (!setupEconomy() ) {
             log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
@@ -138,9 +136,7 @@ public final class SimplisticShops extends JavaPlugin {
             e.printStackTrace();
         }
     }
-
     public void langReload(){
         langConfig = YamlConfiguration.loadConfiguration(fileLang);
     }
-
 }

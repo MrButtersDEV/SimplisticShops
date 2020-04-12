@@ -43,7 +43,6 @@ public class AmountMenu {
                 .title(name)              //set the title of the GUI (only works in 1.14+)
                 .plugin(plugin)                 //set the plugin instance
                 .open(p);
-
     }
 
     private static boolean isNumeric(final String str) {
@@ -53,5 +52,4 @@ public class AmountMenu {
         }
         return str.chars().allMatch(Character::isDigit);
     }
-
 }

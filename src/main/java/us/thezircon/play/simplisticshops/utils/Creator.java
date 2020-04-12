@@ -89,6 +89,5 @@ public class Creator {
         } else {
             sender.sendMessage("A shop by the name of '"+shopName+"' already exists.");
         }
-
     }
 }

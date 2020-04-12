@@ -15,7 +15,6 @@ public class SellAll implements CommandExecutor{
 
     private static final SimplisticShops plugin = SimplisticShops.getPlugin(SimplisticShops.class);
     private static final Logger log = Logger.getLogger("Minecraft");
-
     private static Sound menuOpenSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuOpenSound"));
 
     @Override
@@ -26,7 +25,6 @@ public class SellAll implements CommandExecutor{
             Inventory inv = player.getInventory();
 
             Seller.sellItems(player, inv, false);
-
             player.playSound(player.getLocation(), menuOpenSound, 3, 1);
 
         } else {

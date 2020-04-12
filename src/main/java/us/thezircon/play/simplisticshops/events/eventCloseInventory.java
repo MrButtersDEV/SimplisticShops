@@ -34,9 +34,5 @@ public class eventCloseInventory implements Listener {
 
             Seller.sellItems(player, inv, true);
         }
-
-
-
     }
-
 }

@@ -162,5 +162,4 @@ public class BuyMenu {
     public static File getFile(){
         return returnFile;
     }
-
 }

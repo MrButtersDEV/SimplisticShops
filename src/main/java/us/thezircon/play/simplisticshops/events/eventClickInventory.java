@@ -36,11 +36,9 @@ public class eventClickInventory implements Listener {
     private static final SimplisticShops plugin = SimplisticShops.getPlugin(SimplisticShops.class);
     private static final Logger log = Logger.getLogger("Minecraft");
     private static final Economy econ = SimplisticShops.getEconomy();
-
     private static final File Shops = new File(plugin.getDataFolder(), "Shops");
     private static final File Buy = new File(Shops,"Buy");
     private static final File Sell = new File(Shops,"Sell");
-
     private static Sound menuSaleCompleteSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuSaleCompleteSound"));
     private static Sound menuSaleFailedSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuSaleFailedSound"));
 
