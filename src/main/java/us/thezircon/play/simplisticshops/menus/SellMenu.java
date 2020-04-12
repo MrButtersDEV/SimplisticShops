@@ -3,7 +3,6 @@ package us.thezircon.play.simplisticshops.menus;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import us.thezircon.play.simplisticshops.SimplisticShops;
 
