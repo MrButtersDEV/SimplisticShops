@@ -27,6 +27,7 @@ public class eventCloseInventory implements Listener {
     @EventHandler
     public void closeInv(InventoryCloseEvent e){
         Player player = Bukkit.getPlayer(e.getPlayer().getUniqueId());
+
         Inventory inv = e.getInventory();
 
         //Lock items in Shops Menu

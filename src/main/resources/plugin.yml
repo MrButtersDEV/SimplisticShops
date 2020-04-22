@@ -24,3 +24,5 @@ commands:
   shop:
     description: Open's the shop menu.
     aliases: [shops, sshop]
+  prices:
+    description: Checks a shops prices!

@@ -8,6 +8,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import us.thezircon.play.simplisticshops.commands.Prices;
 import us.thezircon.play.simplisticshops.commands.Sell;
 import us.thezircon.play.simplisticshops.commands.SellAll;
 import us.thezircon.play.simplisticshops.commands.SetPrice.SetPrice;
@@ -57,6 +58,7 @@ public final class SimplisticShops extends JavaPlugin {
         getCommand("simplistic").setExecutor(new Simplistic());
         getCommand("shop").setExecutor(new Shop());
         getCommand("setprice").setExecutor(new SetPrice());
+        getCommand("prices").setExecutor(new Prices());
 
     }
 

@@ -45,7 +45,6 @@ public class buy extends cmdManager {
 
     @Override
     public void perform(CommandSender sender, String[] args) {
-
         File file = new File(Buy, args[1]);
         FileConfiguration store = YamlConfiguration.loadConfiguration(file);
 

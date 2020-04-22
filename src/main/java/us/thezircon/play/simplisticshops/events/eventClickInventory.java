@@ -3,33 +3,29 @@ package us.thezircon.play.simplisticshops.events;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
-import net.wesjd.anvilgui.AnvilGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.block.Chest;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import us.thezircon.play.simplisticshops.SimplisticShops;
+import us.thezircon.play.simplisticshops.menus.AmountMenu;
 import us.thezircon.play.simplisticshops.menus.BuyMenu;
 import us.thezircon.play.simplisticshops.menus.ShopMenu;
-import us.thezircon.play.simplisticshops.menus.AmountMenu;
 
-import javax.xml.bind.helpers.DefaultValidationEventHandler;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 public class eventClickInventory implements Listener {
@@ -52,9 +48,11 @@ public class eventClickInventory implements Listener {
         Player player = (Player) e.getWhoClicked();
         DecimalFormat f = new DecimalFormat("#0.00");
 
-        if (e.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
-            return;
-        }
+        try {
+            if (e.getClickedInventory().getType().equals(InventoryType.PLAYER)) {
+                return;
+            }
+        } catch (NullPointerException ignored) {}
 
         //Checks for Shops Menu
         if (e.getView().getTitle().equals(SellShopsMenuTitle)) {
@@ -107,6 +105,13 @@ public class eventClickInventory implements Listener {
                     }
                 }
             }
+        }
+
+        //Lock Prices menu
+        String PricesMenuTitle = ChatColor.translateAlternateColorCodes('&', "&6Prices:");
+        if (e.getView().getTitle().equals(PricesMenuTitle)) {
+            e.setCancelled(true);
+
         }
 
         //Check for checkout
@@ -174,6 +179,7 @@ public class eventClickInventory implements Listener {
                     player.sendMessage(saleFail);
                     player.playSound(player.getLocation(), menuSaleFailedSound, 3, 1);
                 }
+
             }
         }
 

@@ -35,8 +35,11 @@ public class Seller {
         File[] sellFiles = Sell.listFiles();
         //Check if player has SimplisticShops.sell.FILE
         try {
+            int attemps = 0;
             for (File file : sellFiles) {
+                attemps++;
                 if (file.isFile()) {
+                    System.out.println(file.getName()); ////////////////
                     if (player.hasPermission("SimplisticShops.sell." + file.getName())) { // Player Has Shop to Sell to
 
                         //Sell items:
@@ -76,6 +79,7 @@ public class Seller {
                         if (didSell) {
                             if (r.transactionSuccess()) {
                                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', String.format("&a# &7You sold &e%s&7 item(s) for &6%s&7 and you now have &6%s&7.", itemsSold, econ.format(r.amount), econ.format(r.balance))));
+                                break; /////////////// May Cause issues if player has multiple shops?
                             } else {
                                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e# &7Transaction failed."));
                             }
@@ -83,14 +87,17 @@ public class Seller {
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&e# &7No items were sold as none were sellable."));
                         }
                     } else { // NO File / Perm Found ----------------- If using chest it will dupe
+                        if (sellFiles.length>attemps) {
+                            continue;
+                        }
                         if (chkReturns) { // Sell GUI
                             for (ItemStack items : inv.getContents()) {
                                 if (items!=null) {
                                     player.getInventory().addItem(items);
-                                    player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c# &7No items were sold as you have no shop to sell them too."));
                                 }
                             }
                         }
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&c# &7No items were sold as you have no shop to sell them too."));
                     }
                 }
             }

@@ -79,7 +79,7 @@ public class Creator {
 
                 FileConfiguration shop = YamlConfiguration.loadConfiguration(shopFile);
                 shop.set("Shop.DisplayName", "&3"+shopName.replace(".yml", " Shop"));
-                shop.set("Shop.Name", ""+shopName.replace(".yml", " Shop"));
+                shop.set("Shop.Name", ""+shopName.replace(".yml", ""));
                 shop.save(shopFile);
 
                 sender.sendMessage("Successfully created shop");

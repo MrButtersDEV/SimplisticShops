@@ -3,7 +3,7 @@
 # https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
 
 Shop:
-  Name: "Template Shop"
+  Name: "Template"
   DisplayName: "&3Template Shop"
 
 Prices:
