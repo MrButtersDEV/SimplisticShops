@@ -9,8 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import us.thezircon.play.simplisticshops.SimplisticShops;
-import us.thezircon.play.simplisticshops.menus.BuyMenu;
-import us.thezircon.play.simplisticshops.menus.SellMenu;
 import us.thezircon.play.simplisticshops.utils.Seller;
 
 import java.util.Objects;
@@ -30,6 +28,7 @@ public class eventCloseInventory implements Listener {
 
         Inventory inv = e.getInventory();
 
+        /*
         //Lock items in Shops Menu
         if (e.getView().getTitle().equals(SellMenuTitle)){
             player.playSound(player.getLocation(), menuCloseSound, 1, 1);
@@ -38,5 +37,6 @@ public class eventCloseInventory implements Listener {
         } else if (e.getView().getTitle().equals(BuyMenu.getTitle())) {
             plugin.hmChkOut.remove(player);
         }
+        */
     }
 }

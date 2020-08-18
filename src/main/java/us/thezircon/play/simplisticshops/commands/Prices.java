@@ -5,13 +5,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import sun.management.Sensor;
 import us.thezircon.play.simplisticshops.SimplisticShops;
-import us.thezircon.play.simplisticshops.menus.PricesMenu;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -34,7 +31,7 @@ public class Prices implements TabExecutor {
                    for (File Shops : Sell.listFiles()) {
                        YamlConfiguration Shop = YamlConfiguration.loadConfiguration(Shops);
                        if (Shop.getString("Shop.Name").equals(ShopName)) {
-                           PricesMenu.open(player, Shops);
+                         //  PricesMenu.open(player, Shops);
                            break;
                        }
                    }

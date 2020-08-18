@@ -6,7 +6,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import us.thezircon.play.simplisticshops.SimplisticShops;
-import us.thezircon.play.simplisticshops.menus.SellMenu;
 
 import java.util.logging.Logger;
 
@@ -20,7 +19,7 @@ public class Sell implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            SellMenu.openMenu(player);
+         //   SellMenu.openMenu(player);
 
             player.playSound(player.getLocation(), saleCompleteSound, 3, 1);
 

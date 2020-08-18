@@ -1,7 +1,6 @@
 package us.thezircon.play.simplisticshops;
 
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,7 +15,7 @@ import us.thezircon.play.simplisticshops.commands.Shop;
 import us.thezircon.play.simplisticshops.commands.Simplistic.Simplistic;
 import us.thezircon.play.simplisticshops.events.eventClickInventory;
 import us.thezircon.play.simplisticshops.events.eventCloseInventory;
-import us.thezircon.play.simplisticshops.menus.BuyMenu;
+import us.thezircon.play.simplisticshops.utils.menu.PlayerMenuUtility;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,7 +31,8 @@ public final class SimplisticShops extends JavaPlugin {
     private static final Logger log = Logger.getLogger("Minecraft");
     private static Economy econ = null;
 
-    public HashMap<Player, BuyMenu> hmChkOut = new HashMap<>();
+    //public HashMap<Player, BuyMenu> hmChkOut = new HashMap<>();
+    private static final HashMap<Player, PlayerMenuUtility> playerMenuUtilityMap = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -53,12 +53,12 @@ public final class SimplisticShops extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new eventClickInventory(), this);
 
         //Commands
-        getCommand("sellall").setExecutor(new SellAll());
-        getCommand("sell").setExecutor(new Sell());
-        getCommand("simplistic").setExecutor(new Simplistic());
+        //getCommand("sellall").setExecutor(new SellAll());
+        //getCommand("sell").setExecutor(new Sell());
+        //getCommand("simplistic").setExecutor(new Simplistic());
         getCommand("shop").setExecutor(new Shop());
-        getCommand("setprice").setExecutor(new SetPrice());
-        getCommand("prices").setExecutor(new Prices());
+        //getCommand("setprice").setExecutor(new SetPrice());
+        //getCommand("prices").setExecutor(new Prices());
 
     }
 
@@ -147,4 +147,21 @@ public final class SimplisticShops extends JavaPlugin {
     public void langReload(){
         langConfig = YamlConfiguration.loadConfiguration(fileLang);
     }
+
+    //Provide a player and return a menu system for that player
+    //create one if they don't already have one
+    public static PlayerMenuUtility getPlayerMenuUtility(Player p) {
+        PlayerMenuUtility playerMenuUtility;
+        if (!(playerMenuUtilityMap.containsKey(p))) { //See if the player has a playermenuutility "saved" for them
+
+            //This player doesn't. Make one for them add add it to the hashmap
+            playerMenuUtility = new PlayerMenuUtility(p);
+            playerMenuUtilityMap.put(p, playerMenuUtility);
+
+            return playerMenuUtility;
+        } else {
+            return playerMenuUtilityMap.get(p); //Return the object by using the provided player
+        }
+    }
+
 }

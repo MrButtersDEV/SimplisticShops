@@ -1,19 +1,15 @@
 package us.thezircon.play.simplisticshops.commands.SetPrice.subcommands;
 
-import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import us.thezircon.play.simplisticshops.SimplisticShops;
 import us.thezircon.play.simplisticshops.commands.cmdManager;
-import us.thezircon.play.simplisticshops.menus.BuyMenu;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;

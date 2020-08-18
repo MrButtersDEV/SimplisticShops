@@ -1,66 +1,45 @@
 package us.thezircon.play.simplisticshops.menus;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-import us.thezircon.play.simplisticshops.SimplisticShops;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
+import us.thezircon.play.simplisticshops.utils.menu.PaginatedMenu;
+import us.thezircon.play.simplisticshops.utils.menu.PlayerMenuUtility;
 
 import java.io.File;
-import java.text.DecimalFormat;
-import java.util.Objects;
-import java.util.logging.Logger;
 
-public class ShopMenu {
+public class ShopMenu extends PaginatedMenu {
 
-    private static final SimplisticShops plugin = SimplisticShops.getPlugin(SimplisticShops.class);
-    private static final Logger log = Logger.getLogger("Minecraft");
-    private static Sound menuOpenSound = Sound.valueOf(plugin.getConfig().getString("BuySettings.Sounds.menuOpenSound"));;
+    public ShopMenu(PlayerMenuUtility playerMenuUtility) {
+        super(playerMenuUtility);
+    }
 
-    public static void openShop(Player player, File file){
+    private File file = playerMenuUtility.getFile();
+    private YamlConfiguration conf = YamlConfiguration.loadConfiguration(file);
 
-        FileConfiguration shop = YamlConfiguration.loadConfiguration(file);
-        String ShopTitle = ChatColor.translateAlternateColorCodes('&', shop.getString("Shop.DisplayName"));
+    @Override
+    public String getMenuName() {
+        return ChatColor.translateAlternateColorCodes('&', conf.getString("Shop.DisplayName"));
+    }
 
-        DecimalFormat f = new DecimalFormat("#0.00");
+    @Override
+    public InventoryType getType() {
+        return InventoryType.CHEST;
+    }
 
-        Inventory gui = Bukkit.createInventory(player, 54, ShopTitle);
+    @Override
+    public int getSlots() {
+        return 54;
+    }
 
-        player.playSound(player.getLocation(), menuOpenSound, 3, 1);
+    @Override
+    public void handleMenu(InventoryClickEvent e) {
 
-        for (String keys : shop.getKeys(true)) {
+    }
 
-            if (keys.contains("Shop") || keys.equals("Prices")) {
-                continue;
-            }
-
-            keys = keys.replace("Prices.", "");
-
-            ItemStack item = new ItemStack(Material.valueOf(keys));
-
-            String name = item.getType().toString().replace("_", " ");
-            String words[] = name.split(" ");
-
-            StringBuilder name2 = new StringBuilder();
-            for (String w : words) {
-                String first = w.substring(0, 1);
-                String after = w.substring(1);
-                name2.append(first.toUpperCase()).append(after.toLowerCase()).append(" ");
-            }
-
-            String itemName = ChatColor.translateAlternateColorCodes('&', ("&3"+ name2 + "&a$"+ f.format(shop.getDouble("Prices." + keys)) +"/Per"));
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(itemName);
-            item.setItemMeta(meta);
-            gui.addItem(item);
-        }
-        player.openInventory(gui);
+    @Override
+    public void setMenuItems() {
+        for (String keys : )
     }
 }
